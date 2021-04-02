@@ -1,0 +1,36 @@
+DROP TABLE [dbo].[Genre];
+DROP TABLE [dbo].[Vinyl];
+
+Create Table Genre(
+GenreID int IDENTITY(1,1) NOT NULL,
+GenreName nvarchar(20) NOT NULL
+
+CONSTRAINT PK_Genre PRIMARY KEY CLUSTERED (GenreID)
+);
+
+CREATE TABLE Vinyl(
+VinylID int IDENTITY(1,1) NOT NULL,
+VinylName NVARCHAR(100) NOT NULL,
+Artist NVARCHAR(100) NOT NULL,
+VinylDescription NVARCHAR(500) NOT NULL ,
+ReleaseYear DATE  NOT NULL,
+GenreID int
+  CONSTRAINT PK_Vinyl PRIMARY KEY CLUSTERED (VinylID)
+)
+
+GO
+ALTER TABLE Vinyl WITH CHECK ADD FOREIGN KEY(GenreID)
+REFERENCES Genre (GenreID)
+
+SET IDENTITY_INSERT [dbo].[Genre] ON
+INSERT INTO dbo.Genre (GenreID,GenreName) VALUES (1,'Rock');
+INSERT INTO dbo.Genre (GenreID,GenreName) VALUES (2,'Pop');
+INSERT INTO dbo.Genre (GenreID,GenreName) VALUES (3,'Jazz');
+SET IDENTITY_INSERT dbo.Genre OFF
+
+
+SET IDENTITY_INSERT [dbo].[Vinyl] ON
+INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (1, 'Back in Black', 'ACDC','Very Rare', '05-07-1966',1);
+INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (2, 'Pet Sounds', 'The Beach Boys','Common', '05-16-1966',2);
+INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (3, 'DukeElington', 'Duke Elington at Newport','Highly Rare', '07-07-1956',3);
+SET IDENTITY_INSERT [dbo].[Vinyl] OFF
