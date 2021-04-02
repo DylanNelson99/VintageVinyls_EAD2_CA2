@@ -1,0 +1,14 @@
+com/vinylsfrontend/ReactNativeFlipper.java
+ com.vinylsfrontend.ReactNativeFlipper
+ com.vinylsfrontend.ReactNativeFlipper$1
+ com.vinylsfrontend.ReactNativeFlipper$2
+ com.vinylsfrontend.ReactNativeFlipper$2$1
+com/vinylsfrontend/MainActivity.java
+ com.vinylsfrontend.MainActivity
+com/vinylsfrontend/BuildConfig.java
+ com.vinylsfrontend.BuildConfig
+com/vinylsfrontend/MainApplication.java
+ com.vinylsfrontend.MainApplication
+ com.vinylsfrontend.MainApplication$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
