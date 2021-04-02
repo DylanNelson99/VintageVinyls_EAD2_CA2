@@ -1,0 +1,2 @@
+rootProject.name = "VinylsEADCA2"
+include ':app'

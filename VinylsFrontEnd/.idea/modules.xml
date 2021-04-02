@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VinylsFrontEnd.iml" filepath="$PROJECT_DIR$/.idea/VinylsFrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VinylsEADCA2.iml" filepath="$PROJECT_DIR$/.idea/modules/VinylsEADCA2.iml" />
     </modules>
   </component>
 </project>
