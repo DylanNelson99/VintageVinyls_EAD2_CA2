@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nitesh Naik\\source\\EAD\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {}
+    "D:\\College\\Year4\\semester8\\EAD2\\CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nitesh Naik\\source\\EAD\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {
+    "D:\\College\\Year4\\semester8\\EAD2\\CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nitesh Naik\\source\\EAD\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
+        "projectUniqueName": "D:\\College\\Year4\\semester8\\EAD2\\CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
         "projectName": "EAD_CA2",
-        "projectPath": "C:\\Users\\Nitesh Naik\\source\\EAD\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
-        "packagesPath": "C:\\Users\\Nitesh Naik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nitesh Naik\\source\\EAD\\EAD_CA2\\EAD_CA2\\obj\\",
+        "projectPath": "D:\\College\\Year4\\semester8\\EAD2\\CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
+        "packagesPath": "C:\\Users\\X0014\\.nuget\\packages\\",
+        "outputPath": "D:\\College\\Year4\\semester8\\EAD2\\CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "N:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Nitesh Naik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\X0014\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
