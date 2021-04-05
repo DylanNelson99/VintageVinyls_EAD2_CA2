@@ -1,6 +1,0 @@
--id
--name
--Artist
--desc
--Genre
--Year
