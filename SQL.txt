@@ -1,5 +1,5 @@
---DROP TABLE [dbo].[Genre];
 --DROP TABLE [dbo].[Vinyl];
+--DROP TABLE [dbo].[Genre];
 
 Create Table Genre(
 GenreID int IDENTITY(1,1) NOT NULL,
