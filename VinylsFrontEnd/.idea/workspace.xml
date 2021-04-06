@@ -1,55 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
-  </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f0ac92-30fe-4b27-950f-7236fcdc3005" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/.vs/EAD_CA2/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/.vs/EAD_CA2/config/applicationhost.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/.vs/EAD_CA2/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/.vs/EAD_CA2/v16/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/bin/Debug/net5.0/EAD_CA2.runtimeconfig.dev.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.genruntimeconfig.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/Debug/net5.0/EAD_CA2.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/EAD_CA2.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/EAD_CA2.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/EAD_CA2.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/EAD_CA2.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EAD_CA2/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../EAD_CA2/obj/project.nuget.cache" afterDir="false" />
-    </list>
+    <list default="true" id="b8f0ac92-30fe-4b27-950f-7236fcdc3005" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
   <component name="ProjectId" id="1qkiqQRjo3ZptsHNLYQJvfQPlka" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,7 +15,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../../Project - Github/project-DylanNelson99" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
@@ -68,7 +26,6 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="true" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -117,7 +74,6 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -134,17 +90,6 @@
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="WindowStateProjectService">
     <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617630625459">
       <screen x="0" y="0" width="1536" height="864" />
@@ -158,10 +103,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="586" y="179" key="AndroidProcessChooserDialog/0.0.1536.864@0.0.1536.864" timestamp="1617630652102" />
-    <state x="686" y="225" key="FileChooserDialogImpl" timestamp="1617720265530">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1617639034331">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="686" y="225" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1617720265530" />
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1617639034331" />
     <state x="277" y="77" key="SettingsEditor" timestamp="1617639041563">
       <screen x="0" y="0" width="1536" height="864" />
