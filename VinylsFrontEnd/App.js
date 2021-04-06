@@ -1,182 +1,100 @@
-// import React, { useState } from 'react';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-// import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 
-// import axios from 'axios';
-
-// const App = () => {
-// 	// const [ state, setState ] = this.State([]);
-// 	this.state = {
-// 		Vinyl: [],
-// 		Genre: []
-// 	};
-// axios
-// 	.get('https://c26b653c5276.ngrok.io/api/Vinyls/GetVinyls')
-// 	.then((res) => {
-// 		console.log(res.data);
-// 		setState({
-// 			Vinyl: res.data
-// 		});
-// 	})
-// 	.catch((err) => {
-// 		console.log(err);
-// 	});
-
-// 	axios.get('https://c26b653c5276.ngrok.io/api/Genre').then((res) => {
-// 		this.setState({ Genre: res.data });
-// 	});
-
-// 	const { Vinyl } = this.state;
-// 	return (
-// 		<View>
-// 			<Table className="mt-4" striped bordered hover size="sm">
-// 				<thead>
-// 					<tr>
-// 						<th>VinylID</th>
-// 						<th>VinylName</th>
-// 						<th>Artist</th>
-// 						<th>VinylDescription</th>
-// 						<th>ReleaseYear</th>
-// 						<th>Genre</th>
-// 						<th>Options</th>
-// 					</tr>
-// 				</thead>
-// 				<tbody>
-// 					{Vinyl.map((item) => (
-// 						<tr key={item.VinylID}>
-// 							<td>{item.VinylID}</td>
-// 							<td>{item.VinylName}</td>
-// 							<td>{item.Artist}</td>
-// 							<td>{item.ReleaseYear}</td>
-// 							<td>{item.Genre.GenreName}</td>
-// 							<td />
-// 						</tr>
-// 					))}
-// 				</tbody>
-// 			</Table>
-// 		</View>
-// 	);
-// };
-
-// export default App;
-
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, ScrollView, FlatList, Button } from 'react-native';
 import axios from 'axios';
-export default class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { vinyls: [], genre: [] };
+import { StyleSheet, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 
-		axios
-			.get('https://c26b653c5276.ngrok.io/api/Vinyls/GetVinyls')
-			.then((res) => {
-				console.log(res.data);
-				setState({
-					vinyls: res.data
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+const App: () => React$Node = () => {
+	const [ VinylsCollection, setStateVinyls ] = useState([]);
 
-		axios.get('https://c26b653c5276.ngrok.io/api/Genre').then((res) => {
-			setState({ genre: res.data });
+	useEffect(
+		() => {
+			axios
+				.get('https://d890cebd54ce.ngrok.io/api/Vinyls/GetVinyls')
+				.then((res) => setStateVinyls(res.data))
+				.catch((err) => console.log(err));
+		},
+		[ VinylsCollection ]
+	);
+
+	// Might be a bit tricky
+	function editEndpoint(drinkId) {}
+	function deleteEndpoint(drinkId) {
+		// https://e66f32be20ec.ngrok.io/cocktails/drinkId
+	}
+	function displayVinyls() {
+		return VinylsCollection.map((item) => {
+			return (
+				<ScrollView>
+					<Card>
+						<CardImage source={{ uri: 'http://bit.ly/2GfzooV' }} title={item.vinylName} />
+						<CardTitle subtitle={item.releaseYear} />
+
+						<CardContent>
+							<Text>Genre : {item.vinylName}</Text>
+						</CardContent>
+
+						<CardContent>
+							<Text>Rareity : {item.vinylDescription}</Text>
+						</CardContent>
+
+						<CardContent>
+							<Text>Genre : {item.genre.genreName}</Text>
+						</CardContent>
+
+						<CardAction separator={true} inColumn={false}>
+							<CardButton onPress={() => {}} title="Edit" color="#FEB557" />
+							<TouchableOpacity style={styles.buttonStyleDelete}>
+								<Text style={styles.button}>Delete</Text>
+							</TouchableOpacity>
+						</CardAction>
+					</Card>
+				</ScrollView>
+			);
 		});
 	}
-
-	render() {
-		const { vinyls, genre } = this.state;
-		return <View style={styles.container} />;
-	}
-}
+	return (
+		<SafeAreaView>
+			<ScrollView>
+				<Text style={styles.mainHeading}>Vinyls</Text>
+				{displayVinyls()}
+			</ScrollView>
+		</SafeAreaView>
+	);
+};
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginTop: 20
-	},
-	productImg: {
-		width: 200,
-		height: 200
-	},
-	name: {
-		fontSize: 28,
-		color: 'red',
-		fontWeight: 'bold'
-	},
-	price: {
-		marginTop: 10,
-		fontSize: 18,
-		color: 'green',
-		fontWeight: 'bold'
-	},
-	description: {
-		textAlign: 'center',
-		marginTop: 10,
-		color: '#696969'
-	},
-	star: {
-		width: 40,
-		height: 40
-	},
-	btnColor: {
-		height: 30,
-		width: 30,
-		borderRadius: 30,
-		marginHorizontal: 3
-	},
-	btnSize: {
-		height: 40,
-		width: 40,
-		borderRadius: 40,
-		borderColor: '#778899',
-		borderWidth: 1,
-		marginHorizontal: 3,
-		backgroundColor: 'white',
-
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	starContainer: {
-		justifyContent: 'center',
-		marginHorizontal: 30,
-		flexDirection: 'row',
-		marginTop: 20
-	},
-	contentColors: {
-		justifyContent: 'center',
-		marginHorizontal: 30,
-		flexDirection: 'row',
-		marginTop: 20
-	},
-	contentSize: {
-		justifyContent: 'center',
-		marginHorizontal: 30,
-		flexDirection: 'row',
-		marginTop: 20
-	},
-	separator: {
-		height: 2,
-		backgroundColor: '#eeeeee',
-		marginTop: 20,
-		marginHorizontal: 30
-	},
-	shareButton: {
-		marginTop: 10,
-		height: 45,
-		flexDirection: 'row',
-		justifyContent: 'center',
+	buttonStyleDelete: {
+		backgroundColor: '#ff4e50',
 		alignItems: 'center',
-		borderRadius: 30,
-		backgroundColor: '#00BFFF'
+		width: 60,
+		paddingBottom: 10,
+		paddingTop: 10,
+		marginLeft: 10,
+		borderRadius: 3,
+		color: 'white'
 	},
-	shareButtonText: {
-		color: '#FFFFFF',
-		fontSize: 20
+	mainHeading: {
+		fontSize: 35,
+		fontFamily: 'sans-serif-light',
+		textAlign: 'center',
+		marginBottom: 25,
+		backgroundColor: 'white',
+		paddingBottom: 10,
+		paddingTop: 10,
+		color: 'black'
 	},
-	addToCarContainer: {
-		marginHorizontal: 30
+	button: {
+		color: 'white'
 	}
 });
+
+export default App;
