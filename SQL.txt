@@ -1,5 +1,5 @@
-DROP TABLE [dbo].[Genre];
-DROP TABLE [dbo].[Vinyl];
+--DROP TABLE [dbo].[Vinyl];
+--DROP TABLE [dbo].[Genre];
 
 Create Table Genre(
 GenreID int IDENTITY(1,1) NOT NULL,
@@ -10,6 +10,7 @@ CONSTRAINT PK_Genre PRIMARY KEY CLUSTERED (GenreID)
 
 CREATE TABLE Vinyl(
 VinylID int IDENTITY(1,1) NOT NULL,
+VinylImage NVARCHAR(500) NOT NULL,
 VinylName NVARCHAR(100) NOT NULL,
 Artist NVARCHAR(100) NOT NULL,
 VinylDescription NVARCHAR(500) NOT NULL ,
@@ -30,7 +31,10 @@ SET IDENTITY_INSERT dbo.Genre OFF
 
 
 SET IDENTITY_INSERT [dbo].[Vinyl] ON
-INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (1, 'Back in Black', 'ACDC','Very Rare', '05-07-1966',1);
-INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (2, 'Pet Sounds', 'The Beach Boys','Common', '05-16-1966',2);
-INSERT INTO dbo.Vinyl(VinylID, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (3, 'DukeElington', 'Duke Elington at Newport','Highly Rare', '07-07-1956',3);
+INSERT INTO dbo.Vinyl(VinylID,VinylImage, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (1, 'https://upload.wikimedia.org/wikipedia/commons/9/92/ACDC_Back_in_Black.png','Back in Black', 'ACDC','Very Rare', '05-07-1966',1);
+
+INSERT INTO dbo.Vinyl(VinylID, VinylImage, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (2,'https://townsquare.media/site/295/files/2016/04/The-Beach-Boys-PS50-Collect.jpg?w=980&q=75','Pet Sounds', 'The Beach Boys','Common', '05-16-1966',2);
+
+INSERT INTO dbo.Vinyl(VinylID, VinylImage, VinylName, Artist, VinylDescription, ReleaseYear, GenreID) VALUES (3,'https://miro.medium.com/max/3000/1*_TEBuj-nL2C7b4ReT4uQ2w.jpeg' ,'DukeElington', 'Duke Elington at Newport','Highly Rare', '07-07-1956',3);
+
 SET IDENTITY_INSERT [dbo].[Vinyl] OFF
