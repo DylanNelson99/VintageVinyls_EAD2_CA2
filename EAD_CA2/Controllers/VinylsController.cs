@@ -109,9 +109,9 @@ namespace EAD_CA2.Controllers
             }
         }
 
-        [Route("SearchVinyl")]
+        /*[Route("SearchVinyl")]*/
         [HttpGet]
-        public ActionResult<IEnumerable<Vinyl>> SearchVinyl(string name)
+        public ActionResult<IEnumerable<Vinyl>> SearchVinyl([FromQuery]string name)
         {
 
             try
