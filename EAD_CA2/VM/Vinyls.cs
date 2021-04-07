@@ -13,6 +13,10 @@ namespace EAD_CA2
         public int VinylID { get; set; }
 
         [Required]
+        public string VinylImage { get; set; }
+
+
+        [Required]
         public string VinylName { get; set; }
 
         [Required]
@@ -42,6 +46,7 @@ namespace EAD_CA2
         public void CopyItemRequest(VinylRequest itemToCopy, Genre gen)
         {
             VinylID = itemToCopy.VinylID;
+            VinylImage = itemToCopy.VinylImage;
             VinylName = itemToCopy.VinylName;
             Artist = itemToCopy.Artist;
             VinylDescription = itemToCopy.VinylDescription;

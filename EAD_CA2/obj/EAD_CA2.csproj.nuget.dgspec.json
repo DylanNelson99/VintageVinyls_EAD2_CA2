@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nitesh Naik\\source\\EAD2_CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {}
+    "C:\\Users\\Nitesh Naik\\Desktop\\EAD2CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nitesh Naik\\source\\EAD2_CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj": {
+    "C:\\Users\\Nitesh Naik\\Desktop\\EAD2CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nitesh Naik\\source\\EAD2_CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
+        "projectUniqueName": "C:\\Users\\Nitesh Naik\\Desktop\\EAD2CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2.csproj",
         "projectName": "EAD_CA2",
-        "projectPath": "C:\\Users\\Nitesh Naik\\source\\EAD2_CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\EAD_CA2.csproj",
+        "projectPath": "C:\\Users\\Nitesh Naik\\Desktop\\EAD2CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2.csproj",
         "packagesPath": "C:\\Users\\Nitesh Naik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nitesh Naik\\source\\EAD2_CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\EAD_CA2\\obj\\",
+        "outputPath": "C:\\Users\\Nitesh Naik\\Desktop\\EAD2CA2\\VintageVinyls_EAD2_CA2\\EAD_CA2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "N:\\Microsoft\\Xamarin\\NuGet\\"

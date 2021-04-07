@@ -89,9 +89,9 @@ namespace EAD_CA2.Controllers
             }
         }
 
-        [Route("{id}")]
+        /*[Route("{id}")]*/
         [HttpDelete]
-        public ActionResult<string> DeleteVinyls([FromRoute] int id)
+        public ActionResult<string> DeleteVinyls([FromQuery] int id)
         {
             try
             {

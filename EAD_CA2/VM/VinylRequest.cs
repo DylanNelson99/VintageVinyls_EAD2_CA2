@@ -12,6 +12,9 @@ namespace EAD_CA2.VM
         public int VinylID { get; set; }
 
         [Required]
+        public string VinylImage { get; set; }
+
+        [Required]
         public string VinylName { get; set; }
 
         [Required]
