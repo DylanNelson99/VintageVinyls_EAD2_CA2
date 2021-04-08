@@ -9,46 +9,56 @@
 import React, { useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import axios from 'axios';
-import { StyleSheet, Text, ScrollView, SafeAreaView, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import {
+	StyleSheet,
+	Text,
+	ScrollView,
+	SafeAreaView,
+	TouchableOpacity,
+	TextInput,
+	FlatList,
+	Button
+} from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import { State } from 'react-native-gesture-handler';
 
 const App: () => React$Node = () => {
 	const [ VinylsCollection, setVinyls ] = useState([]);
+	const [ VinylsCollectionSearch, setVinylsSearch ] = useState([]);
 	const [ text, setText ] = useState('');
-	// const [ searchVinyls, setSearchVinyls ] = useState([]);
+	const [ state, setState ] = useState({ showForm: false });
 
 	useEffect(() => {
 		axios
-			.get('https://cfe084922f0c.ngrok.io/api/Vinyls/GetVinyls')
+			.get('https://d5ccf3423a1e.ngrok.io/api/Vinyls/GetVinyls')
 			.then((res) => {
-				setVinyls(res.data);
+				setVinyls(res.data), setVinylsSearch(res.data);
 			})
 			.catch((err) => alert(err));
 	}, []);
 
-	// const SearchFilter = (name) => {
-	// 	axios
-	// 		.get(`https://cfe084922f0c.ngrok.io/api/Vinyls?name=${name}`)
-	// 		.then((res) => {
-	// 			setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylName === name || vinyl.artist === name));
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// };
-
 	function searchFilter(text) {
 		setText(text);
-		const searchdata = VinylsCollection.filter((item) => {
+
+		const searchdata = VinylsCollectionSearch.filter((item) => {
 			const itemData = item.vinylName.toUpperCase();
+			const artist = item.artist.toUpperCase();
+			const vinylDescription = item.vinylDescription.toUpperCase();
+			const genre = item.genre.genreName.toUpperCase();
 			const textData = text.toUpperCase();
-			return itemData.indexOf(textData) > -1;
+			return (
+				itemData.includes(textData) ||
+				artist.includes(textData) ||
+				vinylDescription.includes(textData) ||
+				genre.includes(textData)
+			);
 		});
 
 		setVinyls(searchdata);
 	}
-
 	const deleteVinyl = (vinylID) => {
 		axios
-			.delete(`https://cfe084922f0c.ngrok.io/api/Vinyls/?ID=${vinylID}`)
+			.delete(`https://d5ccf3423a1e.ngrok.io/api/Vinyls/?ID=${vinylID}`)
 			.then((res) => {
 				setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylID !== vinylID));
 			})
@@ -56,7 +66,7 @@ const App: () => React$Node = () => {
 	};
 
 	const updateVinyl = () => {
-		axios.put;
+		axios.put();
 	};
 
 	function displayVinyls({ item }) {
@@ -81,7 +91,7 @@ const App: () => React$Node = () => {
 
 						<CardAction separator={true} inColumn={false}>
 							<CardButton
-								// onPress={() => this.deleteVinyl(this.state.vinylstoDelete.item.vinylID)}
+								onClick={() => this.setState({ showForm: true })}
 								title="Edit"
 								color="#FEB557"
 							/>
@@ -115,7 +125,6 @@ const App: () => React$Node = () => {
 					renderItem={displayVinyls}
 					keyExtractor={(item) => item.vinylID.toString()}
 				/>
-				{/* {displayVinyls()} */}
 			</ScrollView>
 		</SafeAreaView>
 	);
