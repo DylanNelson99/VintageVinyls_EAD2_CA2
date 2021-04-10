@@ -33,14 +33,14 @@ namespace EAD_CA2.Controllers
 
         [Route("AddVinyls")]
         [HttpPost]
-        public ActionResult<string> Add(VinylRequest newVinyl)
+        public ActionResult<Response> Add(VinylRequest newVinyl)
         {
             var newVin = _vinylsDb.Genre.FirstOrDefault(v => v.GenreID == newVinyl.GenreID);
             Vinyl vinyl = new(newVinyl, newVin);
 
             if (newVin == null)
             {
-                return StatusCode(500, "Failed to add; Genre doesn't match");
+                return StatusCode(500, new Response() { Message = "Failed to add; Genre doesn't match", VinylResponse=null } );
             }
             else
             {
@@ -49,17 +49,16 @@ namespace EAD_CA2.Controllers
                 {
                     _vinylsDb.Vinyl.Add(vinyl);
                     _vinylsDb.SaveChanges();
-                    return Ok("Added successfully");
+                    return Ok(new Response() { Message = "Added Successfully", VinylResponse = vinyl });
                 }
                 catch (Exception )
                 {
-                    return StatusCode(500, "Failed to add");
+                    return StatusCode(500,   new Response() { Message = "Failed to add", VinylResponse = null});
 
                 }
 
             }
-
-          
+ 
         }
         [Route("UpdateVinyl")]
         [HttpPut]

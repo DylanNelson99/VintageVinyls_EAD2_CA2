@@ -25,7 +25,7 @@ namespace EAD_CA2.VM
 
 
         [Required]
-        public DateTime ReleaseYear { get; set; }
+        public string ReleaseYear { get; set; }
 
         [Required]
         public  int GenreID { get; set; }
