@@ -23,7 +23,6 @@ namespace EAD_CA2.VM
         [Required]
         public string VinylDescription { get; set; }
 
-
         [Required]
         public string ReleaseYear { get; set; }
 

@@ -10,20 +10,37 @@ import {
 	TextInput,
 	FlatList,
 	Modal,
-	Alert,
 	View,
-	Pressable,
-	Form
+	Pressable
 } from 'react-native';
 
+import { Picker } from '@react-native-picker/picker';
+// import { Select, Option } from 'react-native-option-select';
 import { Card, CardTitle, CardContent, CardAction, CardImage } from 'react-native-cards';
 import { FAB } from 'react-native-paper';
 
 const App: () => React$Node = () => {
 	const [ VinylsCollection, setVinyls ] = useState([]);
 	const [ VinylsCollectionSearch, setVinylsSearch ] = useState([]);
+	const [ genreCollection, setGenreCollection ] = useState([]);
+	
 	const [ text, setText ] = useState('');
-	const [ modalVisible, setModalVisible ] = useState(false);
+
+	const [ addModal, setAddModal ] = useState(false);
+	const [ editModal, setEditModal ] = useState(false);
+
+	const [ populateEditModal, setPopulateEditModal ] = useState({
+		vinylID: -1,
+		vinylImage: '',
+		vinylName: '',
+		artist: '',
+		vinylDescription: '',
+		releaseYear: '',
+		genre: {
+			genreID: -1,
+			genreName: ''
+		}
+	});
 
 	const [ imageInput, setImageInput ] = useState('');
 	const [ nameInput, setNameInput ] = useState('');
@@ -31,23 +48,30 @@ const App: () => React$Node = () => {
 	const [ descriptionInput, setdescriptionInput ] = useState('');
 	const [ yearInput, setyearInput ] = useState('');
 	const [ genreInput, setgenreInput ] = useState('');
-	const [ setGenre ] = useState([]);
+	
+	var ngrok = 'https://2e94ba643ec9.ngrok.io';
 
-	var ngrok = 'https://a7bcea84c00c.ngrok.io';
+	useEffect(
+		() => {
+			getVinyls();
+			getGenre();
+		},
+		[ editModal ]
+	);
 
-	useEffect(() => {
-		axios
-			.get(`${ngrok}/api/Vinyls/GetVinyls`)
-			.then((res) => {
-				setVinyls(res.data), setVinylsSearch(res.data);
-			})
-			.catch((err) => alert(err));
-	}, []);
+	const resetAddVinylFields = () => {
+		setImageInput('');
+		setNameInput('');
+		setArtistInput('');
+		setdescriptionInput('');
+		setyearInput('');
+		setgenreInput('');
+	}
 
-	function searchFilter(text) {
+	const searchFilterVinyls = (text) => {
 		setText(text);
 
-		const searchdata = VinylsCollectionSearch.filter((item) => {
+		const searchdata = VinylsCollection.filter((item) => {
 			const itemData = item.vinylName.toUpperCase();
 			const artist = item.artist.toUpperCase();
 			const vinylDescription = item.vinylDescription.toUpperCase();
@@ -61,26 +85,36 @@ const App: () => React$Node = () => {
 			);
 		});
 
-		setVinyls(searchdata);
+		setVinylsSearch(searchdata);
 	}
+
 	const deleteVinyl = (vinylID) => {
 		axios
 			.delete(`${ngrok}/api/Vinyls/?ID=${vinylID}`)
 			.then((res) => {
 				setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylID !== vinylID));
+				setVinylsSearch(VinylsCollectionSearch.filter((vinyl) => vinyl.vinylID !== vinylID));
 			})
 			.catch((err) => console.log(err));
 	};
 
-	const getGenre = (() => {
+	const getGenre = () => {
 		axios
 			.get(`${ngrok}/api/Genre`)
 			.then((res) => {
-				setGenre(res.data);
+				setGenreCollection(res.data);
 			})
 			.catch((err) => alert(err));
-	},
-	[]);
+	};
+
+	const getVinyls = () => {
+		axios
+			.get(`${ngrok}/api/vinyls/GetVinyls`)
+			.then((res) => {
+				setVinyls(res.data), setVinylsSearch(res.data);
+			})
+			.catch((err) => alert(err));
+	};
 
 	const addVinyl = () => {
 		axios
@@ -95,7 +129,9 @@ const App: () => React$Node = () => {
 			.then(
 				(result) => {
 					alert(result.data.message);
-					setVinyls([ ...VinylsCollection, result.data.vinylResponse ]);
+					setVinyls([...VinylsCollection, result.data.vinylResponse ]);
+					setVinylsSearch([...VinylsCollectionSearch, result.data.vinylResponse ]);
+					resetAddVinylFields();
 				},
 				(error) => {
 					alert('Failed');
@@ -103,150 +139,271 @@ const App: () => React$Node = () => {
 			);
 	};
 
-	const editVinyl = () => {
+	const editVinyl = (e) => {
 		axios
-			.put(`${ngrok}/api/Vinyls/AddVinyls`, {
-				vinylImage: imageInput,
-				vinylName: nameInput,
-				artist: artistInput,
-				vinylDescription: descriptionInput,
-				releaseYear: yearInput,
-				genreID: genreInput
+			.put(`${ngrok}/api/Vinyls/UpdateVinyl`, {
+				vinylID: e.vinylID,
+				vinylImage: e.vinylImage,
+				vinylName: e.vinylName,
+				artist: e.artist,
+				vinylDescription: e.vinylDescription,
+				releaseYear: e.releaseYear,
+				genreID: e.genre.genreID
 			})
 			.then(
 				(result) => {
-					alert(result.data.message);
-					setVinyls([ ...VinylsCollection, result.data.vinylResponse ]);
+					alert(result.data);
+					const currentVinyls = [
+						...VinylsCollection.filter((vinyl) => vinyl.vinylID !== populateEditModal.vinylID),
+						populateEditModal
+					];
+					const currentVinylsSearch = [
+						...VinylsCollectionSearch.filter((vinyl) => vinyl.vinylID !== populateEditModal.vinylID),
+						populateEditModal
+					];
+					currentVinyls.sort((left, right) => left.vinylID < right.vinylID);
+					currentVinylsSearch.sort((left, right) => left.vinylID < right.vinylID);
+					setVinyls(currentVinyls);
+					setVinylsSearch(currentVinylsSearch)
 				},
 				(error) => {
-					alert('Failed');
+					alert(error);
 				}
 			);
 	};
+
 	function displayVinyls({ item }) {
-		{
-			return (
-				<ScrollView>
-					<Card>
-						<CardImage source={{ uri: item.vinylImage }} title={item.artist} />
-						<CardTitle subtitle={item.releaseYear} />
+		return (
+			<Card>
+				<CardImage source={{ uri: item.vinylImage }} title={item.artist} />
+				<CardTitle subtitle={item.releaseYear} />
+				<CardContent>
+					<Text>Name : {item.vinylName}</Text>
+				</CardContent>
+				<CardContent>
+					<Text>Description : {item.vinylDescription}</Text>
+				</CardContent>
+				<CardContent>
+					<Text>Genre : {item.genre.genreName}</Text>
+				</CardContent>
 
-						<CardContent>
-							<Text>Name : {item.vinylName}</Text>
-						</CardContent>
+				<CardAction separator={true} inColumn={false}>
+					<TouchableOpacity
+						style={styles.buttonStyleDelete}
+						onPress={() => {
+							setEditModal(true);
+							setPopulateEditModal({ ...item });
+						}}
+					>
+						<Text style={styles.button}>Edit</Text>
+					</TouchableOpacity>
 
-						<CardContent>
-							<Text>Rarity : {item.vinylDescription}</Text>
-						</CardContent>
+					<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => deleteVinyl(item.vinylID)}>
+						<Text style={styles.button}>Delete</Text>
+					</TouchableOpacity>
+				</CardAction>
+			</Card>
+		);
+	}
 
-						<CardContent>
-							<Text>Genre : {item.genre.genreName}</Text>
-						</CardContent>
+	return (
+		
+		<>
+			<Text style={styles.mainHeading}>Vinyls</Text>
+			<View style={styles.centeredView}>
+				<Modal
+					animationType="slide"
+					transparent={false}
+					visible={editModal}
+					onRequestClose={() => {
+						setEditModal(!editModal);
+					}}
+				>
+					<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
+					<View style={styles.centeredView}>
+						<View style={styles.modalView}>
+							<Text style={styles.modalInput}>{populateEditModal.vinylID}</Text>
 
-						<Modal
-							animationType="slide"
-							transparent={false}
-							visible={modalVisible}
-							onRequestClose={() => {
-								setModalVisible(!modalVisible);
+							<TextInput
+								style={styles.modalInput}
+								value={populateEditModal.vinylImage}
+								onChangeText={(text) =>
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										vinylImage: text
+									}))}
+								placeholder="Enter image url"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={populateEditModal.vinylName}
+								onChangeText={(text) =>
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										vinylName: text
+									}))}
+								placeholder="Enter Vinyl Name"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={populateEditModal.artist}
+								onChangeText={(text) =>
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										artist: text
+									}))}
+								placeholder="Enter Artist Name"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={populateEditModal.vinylDescription}
+								onChangeText={(text) =>
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										vinylDescription: text
+									}))}
+								placeholder="Enter Descriptions"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={populateEditModal.releaseYear}
+								onChangeText={(text) =>
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										releaseYear: text
+									}))}
+								placeholder="Enter Released Year"
+							/>
+							<Picker
+								selectedValue={populateEditModal.genre.genreID}
+								style={{ height: 50, width: 150 }}
+								onValueChange={(itemValue, itemIndex) => {
+									setPopulateEditModal((prevState) => ({
+										...prevState,
+										genre: { ...genreCollection.find((g) => g.genreID === itemValue) }
+									}));
+								}}
+							>
+								{genreCollection.map((genre) => (
+									<Picker.Item label={genre.genreName} value={genre.genreID} key={genre.genreID} />
+								))}
+							</Picker>
+						</View>
+						<Pressable
+							style={[ styles.button, styles.appButtonContainer ]}
+							onPress={() => {
+								setEditModal(!editModal);
+								editVinyl(populateEditModal);
 							}}
 						>
-							<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
-							<View style={styles.centeredView}>
-								<View style={styles.modalView}>
-									<TextInput
-										style={styles.modalInput}
-										value={imageInput}
-										onChangeText={(imageInput) => setImageInput(imageInput)}
-										placeholder="Enter vinyl url"
-										placeholderTextColor="white"
-									/>
-									<TextInput
-										style={styles.modalInput}
-										value={nameInput}
-										onChangeText={(nameInput) => setNameInput(nameInput)}
-										placeholder="Enter vinyl name"
-										placeholderTextColor="white"
-									/>
-									<TextInput
-										style={styles.modalInput}
-										value={artistInput}
-										onChangeText={(artistInput) => setArtistInput(artistInput)}
-										placeholder="Enter artist name"
-										placeholderTextColor="white"
-									/>
-									<TextInput
-										style={styles.modalInput}
-										value={descriptionInput}
-										onChangeText={(descriptionInput) => setdescriptionInput(descriptionInput)}
-										placeholder="Enter description"
-										placeholderTextColor="white"
-									/>
-									<TextInput
-										style={styles.modalInput}
-										value={yearInput}
-										onChangeText={(yearInput) => setyearInput(yearInput)}
-										placeholder="Enter release year"
-										placeholderTextColor="white"
-									/>
-									<TextInput
-										style={styles.modalInput}
-										value={genreInput}
-										onChangeText={(genreInput) => setgenreInput(genreInput)}
-										placeholder="Genre"
-										placeholderTextColor="white"
-									/>
-								</View>
-								<Pressable
-									style={[ styles.button, styles.appButtonContainer ]}
-									onPress={() => {
-										setModalVisible(!modalVisible);
-										addVinyl();
-									}}
-								>
-									<Text style={styles.appButtonText}>Add Vinyls</Text>
-								</Pressable>
-								<Pressable
-									style={[ styles.button, styles.appButtonContainerClose ]}
-									onPress={() => setModalVisible(!modalVisible)}
-								>
-									<Text style={styles.appButtonTextClose}>Close</Text>
-								</Pressable>
-							</View>
-						</Modal>
+							<Text style={styles.appButtonText}>Edit Vinyl</Text>
+						</Pressable>
+						<Pressable
+							style={[ styles.button, styles.appButtonContainerClose ]}
+							onPress={() => {
+								setEditModal(!editModal);
+							}}
+						>
+							<Text style={styles.appButtonTextClose}>Close</Text>
+						</Pressable>
+					</View>
+				</Modal>
+			</View>
 
-						<CardAction separator={true} inColumn={false}>
-							<TouchableOpacity style={styles.buttonStyleAddDrink} onPress={() => setModalVisible(true)}>
-								<Text style={{ fontFamily: 'sans-serif-light', fontSize: 15 }}>Add Drink</Text>
-							</TouchableOpacity>
-
-							<TouchableOpacity
-								style={styles.buttonStyleDelete}
-								onPress={() => deleteVinyl(item.vinylID)}
+			<View style={styles.centeredView}>
+				<Modal
+					animationType="slide"
+					transparent={false}
+					visible={addModal}
+					onRequestClose={() => {
+						setAddModal(!addModal);
+					}}
+				>
+					<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
+					<View style={styles.centeredView}>
+						<View style={styles.modalView}>
+							<TextInput
+								style={styles.modalInput}
+								value={imageInput}
+								onChangeText={(imageInput) => setImageInput(imageInput)}
+								placeholder="Enter image url"
+							
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={nameInput}
+								onChangeText={(nameInput) => setNameInput(nameInput)}
+								placeholder="Enter Vinyl Name"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={artistInput}
+								onChangeText={(artistInput) => setArtistInput(artistInput)}
+								placeholder="Enter Artist Name"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={descriptionInput}
+								onChangeText={(descriptionInput) => setdescriptionInput(descriptionInput)}
+								placeholder="Enter Descriptions"
+							/>
+							<TextInput
+								style={styles.modalInput}
+								value={yearInput}
+								onChangeText={(yearInput) => setyearInput(yearInput)}
+								placeholder="Enter Released Year"
+							/>
+						
+							<Picker
+								selectedValue={genreInput}
+								style={{ height: 50, width: 150 }}
+								onValueChange={(itemValue, itemIndex) => {
+									setgenreInput( itemValue)}}
 							>
-								<Text style={styles.button}>Delete</Text>
-							</TouchableOpacity>
-						</CardAction>
-					</Card>
-				</ScrollView>
-			);
-		}
-	}
-	return (
-		<SafeAreaView>
-			<ScrollView>
-				<Text style={styles.mainHeading}>Vinyls</Text>
+								{genreCollection.map((genre) => (
+									<Picker.Item label={genre.genreName} value={genre.genreID} key={genre.genreID} />
+								))}
+							</Picker>
+						</View>
 
-				<TextInput
-					style={styles.input}
-					value={text}
-					onChangeText={(text) => searchFilter(text)}
-					placeholder="Search"
-				/>
+						<Pressable
+							style={[ styles.button, styles.appButtonContainer ]}
+							onPress={() => {
+								setAddModal(!addModal);
+								addVinyl();
+							}}
+						>
+							<Text style={styles.appButtonText}>Add Vinyl</Text>
+						</Pressable>
+						<Pressable
+							style={[ styles.button, styles.appButtonContainerClose ]}
+							onPress={() => {
+								setAddModal(!addModal);
+							}}
+						>
+							<Text style={styles.appButtonTextClose}>Close</Text>
+						</Pressable>
+					</View>
+				</Modal>
+			</View>
+			<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => setAddModal(true)}>
+				<Text style={styles.button}>Add Vinyls</Text>
+			</TouchableOpacity>
+			<TextInput
+				style={styles.input}
+				value={text}
+				onChangeText={(text) => searchFilterVinyls(text)}
+				placeholder="Search"
+			/>
 
-				<FlatList data={VinylsCollection} renderItem={displayVinyls} />
-			</ScrollView>
-		</SafeAreaView>
+			<FlatList
+				data={VinylsCollectionSearch}
+				renderItem={displayVinyls}
+				keyExtractor={(item) => item.vinylID.toString()}
+			/>
+
+			{/* </SafeAreaView> */}
+		</>
 	);
 };
 

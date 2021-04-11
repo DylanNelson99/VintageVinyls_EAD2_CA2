@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-picker/picker": "^1.14.0",
     "axios": "^0.21.1",
     "native-forms": "^1.5.5",
     "react": "17.0.1",
@@ -20,6 +21,7 @@
     "react-native-flip-card": "^3.5.6",
     "react-native-floating-action": "^1.21.0",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-option-select": "^1.0.4",
     "react-native-paper": "^4.7.2",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-swipeable": "^0.6.0",
