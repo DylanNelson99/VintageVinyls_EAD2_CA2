@@ -59,6 +59,7 @@ const App: () => React$Node = () => {
 		[ editModal ]
 	);
 
+	
 	const resetAddVinylFields = () => {
 		setImageInput('');
 		setNameInput('');

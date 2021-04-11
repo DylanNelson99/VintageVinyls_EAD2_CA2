@@ -30,7 +30,7 @@ namespace EAD_CA2.Controllers
         }
         [Route("FilterGenre")]
         [HttpGet]
-        public ActionResult<IEnumerable<Vinyl>> GetItemsbyGenre(string name)
+        public ActionResult<IEnumerable<Vinyl>> GetItemsbyGenre([FromQuery] string name)
         {
 
             try

@@ -108,25 +108,7 @@ namespace EAD_CA2.Controllers
             }
         }
 
-        /*[Route("SearchVinyl")]*/
-        [HttpGet]
-        public ActionResult<IEnumerable<Vinyl>> SearchVinyl([FromQuery]string name)
-        {
-
-            try
-            {
-                name = name.ToUpper();
-
-                var Search = _vinylsDb.Vinyl.Include(i => i.Genre).Where(i => i.Artist.ToUpper() == name || i.VinylName.ToUpper() == name);
-                if (Search == null) return NotFound("Vinyl result not found");
-                    return Ok(Search);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Server Error");
-            }
-           
-        }
+  
       
 
 
