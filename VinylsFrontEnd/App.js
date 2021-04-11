@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
-// import { Select, Option } from 'react-native-option-select';
 import { Card, CardTitle, CardContent, CardAction, CardImage } from 'react-native-cards';
 import { FAB } from 'react-native-paper';
 
@@ -49,7 +48,7 @@ const App: () => React$Node = () => {
 	const [ yearInput, setyearInput ] = useState('');
 	const [ genreInput, setgenreInput ] = useState('');
 	
-	var ngrok = 'https://2e94ba643ec9.ngrok.io';
+	var ngrok = ' https://d41fd24ce482.ngrok.io';
 
 	useEffect(
 		() => {
@@ -59,7 +58,7 @@ const App: () => React$Node = () => {
 		[ editModal ]
 	);
 
-	
+	//Reset the field
 	const resetAddVinylFields = () => {
 		setImageInput('');
 		setNameInput('');
@@ -69,6 +68,8 @@ const App: () => React$Node = () => {
 		setgenreInput('');
 	}
 
+
+//Search functionality
 	const searchFilterVinyls = (text) => {
 		setText(text);
 
@@ -89,16 +90,8 @@ const App: () => React$Node = () => {
 		setVinylsSearch(searchdata);
 	}
 
-	const deleteVinyl = (vinylID) => {
-		axios
-			.delete(`${ngrok}/api/Vinyls/?ID=${vinylID}`)
-			.then((res) => {
-				setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylID !== vinylID));
-				setVinylsSearch(VinylsCollectionSearch.filter((vinyl) => vinyl.vinylID !== vinylID));
-			})
-			.catch((err) => console.log(err));
-	};
-
+	//Start of CRUD
+	
 	const getGenre = () => {
 		axios
 			.get(`${ngrok}/api/Genre`)
@@ -173,6 +166,27 @@ const App: () => React$Node = () => {
 			);
 	};
 
+	const deleteVinyl = (vinylID) => {
+		axios
+			.delete(`${ngrok}/api/Vinyls/?ID=${vinylID}`)
+			.then((res) => {
+				setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylID !== vinylID));
+				setVinylsSearch(VinylsCollectionSearch.filter((vinyl) => vinyl.vinylID !== vinylID));
+			})
+			.catch((err) => console.log(err));
+	};
+
+	//End of CRUD
+
+	const getGenreFilter = (name) => {
+		axios
+			.get(`${ngrok}/api/Genre/FilterGenre?name=${name}` )
+			.then((res) => {
+				setVinyls(VinylsCollection.filter((vinyl) => vinyl.genre,genreName === name));
+			})
+			.catch((err) => alert(err));
+	}; 
+
 	function displayVinyls({ item }) {
 		return (
 			<Card>
@@ -210,8 +224,11 @@ const App: () => React$Node = () => {
 	return (
 		
 		<>
+	
 			<Text style={styles.mainHeading}>Vinyls</Text>
+			<ScrollView>
 			<View style={styles.centeredView}>
+			
 				<Modal
 					animationType="slide"
 					transparent={false}
@@ -223,8 +240,7 @@ const App: () => React$Node = () => {
 					<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
 					<View style={styles.centeredView}>
 						<View style={styles.modalView}>
-							<Text style={styles.modalInput}>{populateEditModal.vinylID}</Text>
-
+						
 							<TextInput
 								style={styles.modalInput}
 								value={populateEditModal.vinylImage}
@@ -307,9 +323,13 @@ const App: () => React$Node = () => {
 						>
 							<Text style={styles.appButtonTextClose}>Close</Text>
 						</Pressable>
+						
 					</View>
+					
 				</Modal>
+			
 			</View>
+			</ScrollView>
 
 			<View style={styles.centeredView}>
 				<Modal
@@ -387,9 +407,7 @@ const App: () => React$Node = () => {
 					</View>
 				</Modal>
 			</View>
-			<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => setAddModal(true)}>
-				<Text style={styles.button}>Add Vinyls</Text>
-			</TouchableOpacity>
+			
 			<TextInput
 				style={styles.input}
 				value={text}
@@ -402,6 +420,13 @@ const App: () => React$Node = () => {
 				renderItem={displayVinyls}
 				keyExtractor={(item) => item.vinylID.toString()}
 			/>
+			<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => setAddModal(true)}>
+				<Text style={styles.button}>Add Vinyls</Text>
+			</TouchableOpacity>
+
+			{/* <TouchableOpacity style={styles.buttonStyleDelete} onPress={() => getGenreFilter(Pop)}>
+						<Text style={styles.button}>Pop</Text>
+					</TouchableOpacity> */}
 
 			{/* </SafeAreaView> */}
 		</>
