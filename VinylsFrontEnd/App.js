@@ -5,9 +5,7 @@ import {
 	StyleSheet,
 	Text,
 	ScrollView,
-	SafeAreaView,
     TouchableOpacity,
-	TouchableHighlight,
 	TextInput,
     FlatList,
 	Modal,
@@ -17,9 +15,9 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 import { Card, CardTitle, CardContent, CardAction, CardImage } from 'react-native-cards';
-import { FAB } from 'react-native-paper';
 
-const App: () => React$Node = () => {
+
+const App = () => {
 	const [ VinylsCollection, setVinyls ] = useState([]);
 	const [ VinylsCollectionSearch, setVinylsSearch ] = useState([]);
 	const [ genreCollection, setGenreCollection ] = useState([]);
@@ -179,6 +177,7 @@ const App: () => React$Node = () => {
 
 	//End of CRUD
 
+	//Filtering
 	const getAll = () =>
 	{
 		axios
