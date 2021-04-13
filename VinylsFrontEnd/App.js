@@ -49,7 +49,7 @@ const App: () => React$Node = () => {
 	const [ yearInput, setyearInput ] = useState('');
 	const [ genreInput, setgenreInput ] = useState('');
 	
-	var ngrok = 'https://9220b23bc5f6.ngrok.io';
+	var ngrok = 'https://9c04d0184af4.ngrok.io';
 
 	useEffect(
 		() => {
@@ -179,37 +179,46 @@ const App: () => React$Node = () => {
 
 	//End of CRUD
 
-	function getPop()
+	const getAll = () =>
+	{
+		axios
+		.get(`${ngrok}/api/vinyls/GetVinyls`)
+		.then((res) => {
+			 setVinylsSearch(res.data);
+		})
+		.catch((err) => alert(err));
+};
+	
+
+	const getPop = () =>
 	{
 	  axios.get(`${ngrok}/api/Genre/getPop`)
-			  .then(res => setVinyls(res.data))
-			  .catch(err => console.log(err));
-	}
-
-	function getJazz()
-	{
-	  axios.get(`${ngrok}/api/Genre/getJazz`)
-			  .then(res => setVinyls(res.data))
-			  .catch(err => console.log(err));
-	}
-
-	function getRock()
-	{
-	  axios.get(`${ngrok}/api/Genre/getRock`)
 			.then((res) => {
-			setVinyls(VinylsCollection.filter((vinyl) => vinyl.genre.genreID == 1));	
+			setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Pop"));	
 			})
 			  .catch(err => alert(err));
 	}
 
-	const getGenreFilter = (name) => {
-		axios
-			.get(`${ngrok}/api/Genre/FilterGenre?name=${name}` )
+
+	const getJazz = () =>
+	{
+	  axios.get(`${ngrok}/api/Genre/getJazz`)
 			.then((res) => {
-				setVinyls(VinylsCollection.filter((vinyl) => vinyl.genre,genreName === name));
+			setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Jazz"));	
 			})
-			.catch((err) => alert(err));
-	}; 
+			  .catch(err => alert(err));
+	}
+
+
+	const getRock = () =>
+	{
+	  axios.get(`${ngrok}/api/Genre/getRock`)
+			.then((res) => {
+			setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Rock"));	
+			})
+			  .catch(err => alert(err));
+	}
+
 
 	function displayVinyls({ item }) {
 		return (
@@ -460,16 +469,16 @@ const App: () => React$Node = () => {
             
 			<CardAction separator={true} inColumn={false}>
 				<TouchableOpacity style={styles.buttonGenre} >
-					<Text style={styles.button}>All</Text>
+					<Text style={styles.button}onPress={() => getAll()}>All</Text>
 				</TouchableOpacity>
 			 <TouchableOpacity style={styles.buttonGenre} >
                     <Text style={styles.button} onPress={() => getRock()}>Rock</Text>
                 </TouchableOpacity>
 				<TouchableOpacity style={styles.buttonGenre} >
-					<Text style={styles.button}>Pop</Text>
+					<Text style={styles.button} onPress={() => getPop()}>Pop</Text>
                 </TouchableOpacity>
 				<TouchableOpacity style={styles.buttonGenre} >
-					<Text style={styles.button}>Jazz</Text>
+					<Text style={styles.button} onPress={() => getJazz()}>Jazz</Text>
 				</TouchableOpacity>
 				</CardAction>
 		

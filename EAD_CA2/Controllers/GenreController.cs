@@ -49,6 +49,66 @@ namespace EAD_CA2.Controllers
            
         }
 
+        [Route("getPop")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Vinyl>> getPop()
+        {
+
+            try
+            {
+              
+                var pop = _vinylsDb.Vinyl.Include(i => i.Genre).Where(i => i.Genre.GenreName.ToUpper() == "Pop");
+                if (pop == null) return NotFound("Vinyl result not found");
+                return Ok(pop);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Genre couldnot be loaded at this moment");
+            }
+
+        }
+
+        [Route("getRock")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Vinyl>> getRock()
+        {
+
+            try
+            {
+
+                var rock = _vinylsDb.Vinyl.Include(i => i.Genre).Where(i => i.Genre.GenreName.ToUpper() == "Rock");
+                if (rock == null) return NotFound("Vinyl result not found");
+                return Ok(rock);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Genre couldnot be loaded at this moment");
+            }
+
+        }
+
+        [Route("getJazz")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Vinyl>> getJazz()
+        {
+
+            try
+            {
+
+                var jazz = _vinylsDb.Vinyl.Include(i => i.Genre).Where(i => i.Genre.GenreName.ToUpper() == "Jazz");
+                if (jazz == null) return NotFound("Vinyl result not found");
+                return Ok(jazz);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Genre couldnot be loaded at this moment");
+            }
+
+        }
+
 
 
 
