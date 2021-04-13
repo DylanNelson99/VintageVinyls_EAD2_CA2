@@ -6,9 +6,10 @@ import {
 	Text,
 	ScrollView,
 	SafeAreaView,
-	TouchableOpacity,
+    TouchableOpacity,
+	TouchableHighlight,
 	TextInput,
-	FlatList,
+    FlatList,
 	Modal,
 	View,
 	Pressable
@@ -48,7 +49,7 @@ const App: () => React$Node = () => {
 	const [ yearInput, setyearInput ] = useState('');
 	const [ genreInput, setgenreInput ] = useState('');
 	
-	var ngrok = ' https://d41fd24ce482.ngrok.io';
+	var ngrok = 'https://9220b23bc5f6.ngrok.io';
 
 	useEffect(
 		() => {
@@ -178,6 +179,29 @@ const App: () => React$Node = () => {
 
 	//End of CRUD
 
+	function getPop()
+	{
+	  axios.get(`${ngrok}/api/Genre/getPop`)
+			  .then(res => setVinyls(res.data))
+			  .catch(err => console.log(err));
+	}
+
+	function getJazz()
+	{
+	  axios.get(`${ngrok}/api/Genre/getJazz`)
+			  .then(res => setVinyls(res.data))
+			  .catch(err => console.log(err));
+	}
+
+	function getRock()
+	{
+	  axios.get(`${ngrok}/api/Genre/getRock`)
+			.then((res) => {
+			setVinyls(VinylsCollection.filter((vinyl) => vinyl.genre.genreID == 1));	
+			})
+			  .catch(err => alert(err));
+	}
+
 	const getGenreFilter = (name) => {
 		axios
 			.get(`${ngrok}/api/Genre/FilterGenre?name=${name}` )
@@ -189,8 +213,8 @@ const App: () => React$Node = () => {
 
 	function displayVinyls({ item }) {
 		return (
-			<Card>
-				<CardImage source={{ uri: item.vinylImage }} title={item.artist} />
+			<Card style={styles.display}>
+				<CardImage style={styles.image} source={{ uri: item.vinylImage }} title={item.artist} />
 				<CardTitle subtitle={item.releaseYear} />
 				<CardContent>
 					<Text>Name : {item.vinylName}</Text>
@@ -213,18 +237,18 @@ const App: () => React$Node = () => {
 						<Text style={styles.button}>Edit</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => deleteVinyl(item.vinylID)}>
+					<TouchableOpacity style={styles.buttonDelete} onPress={() => deleteVinyl(item.vinylID)}>
 						<Text style={styles.button}>Delete</Text>
 					</TouchableOpacity>
 				</CardAction>
-			</Card>
+			</Card>		
 		);
 	}
 
 	return (
 		
 		<>
-	
+
 			<Text style={styles.mainHeading}>Vinyls</Text>
 			<ScrollView>
 			<View style={styles.centeredView}>
@@ -234,10 +258,12 @@ const App: () => React$Node = () => {
 					transparent={false}
 					visible={editModal}
 					onRequestClose={() => {
-						setEditModal(!editModal);
-					}}
+                        setEditModal(!editModal);
+
+                    }}
+
 				>
-					<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
+					<Text style={styles.mainHeadingForAdd}>Edit</Text>
 					<View style={styles.centeredView}>
 						<View style={styles.modalView}>
 						
@@ -340,38 +366,43 @@ const App: () => React$Node = () => {
 						setAddModal(!addModal);
 					}}
 				>
-					<Text style={styles.mainHeadingForAdd}>Vinyls</Text>
+					<Text style={styles.mainHeadingForAdd}>Add</Text>
 					<View style={styles.centeredView}>
-						<View style={styles.modalView}>
+                        <View style={styles.modalView}>
 							<TextInput
 								style={styles.modalInput}
 								value={imageInput}
-								onChangeText={(imageInput) => setImageInput(imageInput)}
+                                onChangeText={(imageInput) => setImageInput(imageInput)}
+								placeholderTextColor="white" 
 								placeholder="Enter image url"
 							
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={nameInput}
-								onChangeText={(nameInput) => setNameInput(nameInput)}
+                                onChangeText={(nameInput) => setNameInput(nameInput)}
+								placeholderTextColor="white" 
 								placeholder="Enter Vinyl Name"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={artistInput}
-								onChangeText={(artistInput) => setArtistInput(artistInput)}
+                                onChangeText={(artistInput) => setArtistInput(artistInput)}
+								placeholderTextColor="white" 
 								placeholder="Enter Artist Name"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={descriptionInput}
-								onChangeText={(descriptionInput) => setdescriptionInput(descriptionInput)}
+                                onChangeText={(descriptionInput) => setdescriptionInput(descriptionInput)}
+								placeholderTextColor="white" 
 								placeholder="Enter Descriptions"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={yearInput}
 								onChangeText={(yearInput) => setyearInput(yearInput)}
+								placeholderTextColor="white" 
 								placeholder="Enter Released Year"
 							/>
 						
@@ -406,52 +437,102 @@ const App: () => React$Node = () => {
 						</Pressable>
 					</View>
 				</Modal>
-			</View>
-			
+            </View>
+            
+			<CardAction separator={true} inColumn={false}>
 			<TextInput
 				style={styles.input}
 				value={text}
 				onChangeText={(text) => searchFilterVinyls(text)}
-				placeholder="Search"
+				placeholderTextColor="white" 
+				placeholder="Search here..."
 			/>
-
+			<TouchableOpacity style={styles.buttonadd} onPress={() => setAddModal(true)}>
+				<Text style={styles.button}>+</Text>
+			</TouchableOpacity>
+			</CardAction>
+				
 			<FlatList
 				data={VinylsCollectionSearch}
 				renderItem={displayVinyls}
 				keyExtractor={(item) => item.vinylID.toString()}
 			/>
-			<TouchableOpacity style={styles.buttonStyleDelete} onPress={() => setAddModal(true)}>
-				<Text style={styles.button}>Add Vinyls</Text>
-			</TouchableOpacity>
-
-			{/* <TouchableOpacity style={styles.buttonStyleDelete} onPress={() => getGenreFilter(Pop)}>
-						<Text style={styles.button}>Pop</Text>
-					</TouchableOpacity> */}
-
-			{/* </SafeAreaView> */}
+            
+			<CardAction separator={true} inColumn={false}>
+				<TouchableOpacity style={styles.buttonGenre} >
+					<Text style={styles.button}>All</Text>
+				</TouchableOpacity>
+			 <TouchableOpacity style={styles.buttonGenre} >
+                    <Text style={styles.button} onPress={() => getRock()}>Rock</Text>
+                </TouchableOpacity>
+				<TouchableOpacity style={styles.buttonGenre} >
+					<Text style={styles.button}>Pop</Text>
+                </TouchableOpacity>
+				<TouchableOpacity style={styles.buttonGenre} >
+					<Text style={styles.button}>Jazz</Text>
+				</TouchableOpacity>
+				</CardAction>
+		
 		</>
 	);
 };
 
 const styles = StyleSheet.create({
+	display: {
+		borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 2
+	},
 	buttonStyleDelete: {
-		backgroundColor: '#ff4e50',
+		backgroundColor: '#ffb31a',
 		alignItems: 'center',
 		width: 60,
 		paddingBottom: 10,
 		paddingTop: 10,
 		marginLeft: 10,
 		borderRadius: 3,
+		color: 'white',
+		marginBottom: 4
+    },
+	buttonGenre: {
+		backgroundColor: '#00cc66',
+		alignItems: 'center',
+		width: 80,
+		paddingBottom: 10,
+        paddingTop: 10,
+		marginLeft: 18,
+		borderRadius: 3,
 		color: 'white'
 	},
-
+	TextInput: {
+		color: 'white'
+    },
+	buttonDelete: {
+		backgroundColor: '#cc0000',
+		alignItems: 'center',
+		width: 60,
+		paddingBottom: 10,
+		paddingTop: 10,
+		marginLeft: 10,
+		borderRadius: 3,
+        color: 'white',
+        marginBottom: 4
+	},
+	image: {
+        shadowColor: 'red',
+		elevation: 25,
+		shadowOffset: {
+			width: 0,
+			height: 10
+		},
+    },
 	mainHeading: {
 		fontSize: 35,
 		fontFamily: 'sans-serif-light',
 		textAlign: 'center',
-		marginBottom: 25,
+		marginBottom: 2,
 		backgroundColor: 'white',
-		paddingBottom: 10,
+		paddingBottom: 1,
 		paddingTop: 10,
 		color: 'black'
 	},
@@ -461,23 +542,34 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 20,
 		backgroundColor: 'white',
-
 		paddingTop: 10,
 		color: 'black'
-	},
-	button: {
+    },
+    buttonadd: {
+		backgroundColor: '#00cc66',
+		alignItems: 'center',
+		width: 50,
+		paddingBottom: 10,
+		paddingTop: 10,
+		marginLeft: 5,
+		borderRadius: 3,
 		color: 'white'
+    },
+	button: {
+        color: 'white',
+		alignItems: 'center',
+
 	},
 	centeredView: {
-		backgroundColor: 'grey',
+		backgroundColor: 'white',
 		flex: 1
 	},
 	modalView: {
 		margin: 20,
-		backgroundColor: 'orange',
+        backgroundColor: 'white',
 		padding: 35,
 		alignItems: 'center',
-		shadowColor: 'red',
+		shadowColor: '#1b2328',
 		shadowOffset: {
 			width: 0,
 			height: 2
@@ -489,11 +581,16 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	input: {
-		width: 250,
+		width: 300,
 		borderRadius: 5,
 		height: 40,
 		margin: 12,
-		borderWidth: 1
+        marginBottom:1,
+        marginTop: 1,
+        paddingTop:  1,
+		backgroundColor: '#1b2328',
+        borderWidth: 1,
+        color: 'white'
 	},
 	modalInput: {
 		width: 250,
@@ -501,7 +598,8 @@ const styles = StyleSheet.create({
 		height: 40,
 		margin: 12,
 		borderWidth: 1,
-		backgroundColor: 'grey'
+        backgroundColor: '#1b2328',
+        color: 'white'
 	},
 	appButtonContainer: {
 		elevation: 8,
