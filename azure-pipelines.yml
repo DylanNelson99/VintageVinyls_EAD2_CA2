@@ -26,7 +26,7 @@ steps:
     SonarCloud: 'SONAR_TOKEN'
     organization: 'c57mxfcaqz4mjvc3ivwcxneorusuxnh3xgcicz44lbabbh55bozq'
     scannerMode: 'MSBuild'
-    projectKey: 'eiznta6agfi7balpwzchqzecu4kuwqg65cgvykej3n6r2inm3kcq'
+    projectKey: 'cxti2q453rl54c4crb7l7q3bv3rmjwvvsn2guiqzkwqqqduxmxla'
     projectName: 'EAD2CA2'
 - task: SonarCloudAnalyze@1
 - task: VSBuild@1
