@@ -28,7 +28,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'cxti2q453rl54c4crb7l7q3bv3rmjwvvsn2guiqzkwqqqduxmxla'
     projectName: 'EAD2CA2'
-- task: SonarCloudAnalyze@1
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -40,3 +40,5 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SonarCloudAnalyze@1
