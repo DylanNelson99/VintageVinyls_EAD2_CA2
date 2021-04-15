@@ -47,7 +47,7 @@ const App = () => {
 	const [ yearInput, setyearInput ] = useState('');
 	const [ genreInput, setgenreInput ] = useState('');
 	
-	var ngrok = 'https://9c04d0184af4.ngrok.io';
+	var ngrok = 'https://11719ff5fce1.ngrok.io';
 
 	useEffect(
 		() => {

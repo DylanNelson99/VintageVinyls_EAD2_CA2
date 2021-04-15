@@ -60,7 +60,6 @@ namespace EAD_CA2.Controllers
                 var pop = _vinylsDb.Vinyl.Include(i => i.Genre).Where(i => i.Genre.GenreName.ToUpper() == "Pop");
                 if (pop == null) return NotFound("Vinyl result not found");
                 return Ok(pop);
-
             }
             catch (Exception)
             {
