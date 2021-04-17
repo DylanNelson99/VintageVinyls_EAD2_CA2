@@ -77,12 +77,13 @@ function Vinyls()
 			const artist = item.artist.toUpperCase();
 			const vinylDescription = item.vinylDescription.toUpperCase();
 			const genre = item.genre.genreName.toUpperCase();
+			const releaseYear = item.releaseYear.toUpperCase();
 			const textData = text.toUpperCase();
 			return (
 				itemData.includes(textData) ||
 				artist.includes(textData) ||
 				vinylDescription.includes(textData) ||
-				genre.includes(textData)
+				genre.includes(textData) || releaseYear.includes(textData)
 			);
 		});
 
