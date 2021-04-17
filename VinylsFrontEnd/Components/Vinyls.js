@@ -48,7 +48,7 @@ function Vinyls() {
 
 
 	//Deployment
-	var ngrok = 'https://vintagevinylsmobileapp.azurewebsites.net';
+	var api = 'https://vintagevinylsmobileapp.azurewebsites.net';
 
 	useEffect(
 		() => {
@@ -95,7 +95,7 @@ function Vinyls() {
 
 	const getGenre = () => {
 		axios
-			.get(`${ngrok}/api/Genre`)
+			.get(`${api}/api/Genre`)
 			.then((res) => {
 				setGenreCollection(res.data);
 			})
@@ -104,7 +104,7 @@ function Vinyls() {
 
 	const getVinyls = () => {
 		axios
-			.get(`${ngrok}/api/vinyls/GetVinyls`)
+			.get(`${api}/api/vinyls/GetVinyls`)
 			.then((res) => {
 				setVinyls(res.data), setVinylsSearch(res.data);
 			})
@@ -113,7 +113,7 @@ function Vinyls() {
 
 	const addVinyl = () => {
 		axios
-			.post(`${ngrok}/api/Vinyls/AddVinyls`, {
+			.post(`${api}/api/Vinyls/AddVinyls`, {
 				vinylImage: imageInput,
 				vinylName: nameInput,
 				artist: artistInput,
@@ -136,7 +136,7 @@ function Vinyls() {
 
 	const editVinyl = (e) => {
 		axios
-			.put(`${ngrok}/api/Vinyls/UpdateVinyl`, {
+			.put(`${api}/api/Vinyls/UpdateVinyl`, {
 				vinylID: e.vinylID,
 				vinylImage: e.vinylImage,
 				vinylName: e.vinylName,
@@ -169,7 +169,7 @@ function Vinyls() {
 
 	const deleteVinyl = (vinylID) => {
 		axios
-			.delete(`${ngrok}/api/Vinyls/?ID=${vinylID}`)
+			.delete(`${api}/api/Vinyls/?ID=${vinylID}`)
 			.then((res) => {
 				setVinyls(VinylsCollection.filter((vinyl) => vinyl.vinylID !== vinylID));
 				setVinylsSearch(VinylsCollectionSearch.filter((vinyl) => vinyl.vinylID !== vinylID));
@@ -182,7 +182,7 @@ function Vinyls() {
 	//Filtering
 	const getAll = () => {
 		axios
-			.get(`${ngrok}/api/vinyls/GetVinyls`)
+			.get(`${api}/api/vinyls/GetVinyls`)
 			.then((res) => {
 				setVinylsSearch(res.data);
 			})
@@ -191,7 +191,7 @@ function Vinyls() {
 
 
 	const getPop = () => {
-		axios.get(`${ngrok}/api/Genre/getPop`)
+		axios.get(`${api}/api/Genre/getPop`)
 			.then((res) => {
 				setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Pop"));
 			})
@@ -200,7 +200,7 @@ function Vinyls() {
 
 
 	const getJazz = () => {
-		axios.get(`${ngrok}/api/Genre/getJazz`)
+		axios.get(`${api}/api/Genre/getJazz`)
 			.then((res) => {
 				setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Jazz"));
 			})
@@ -209,7 +209,7 @@ function Vinyls() {
 
 
 	const getRock = () => {
-		axios.get(`${ngrok}/api/Genre/getRock`)
+		axios.get(`${api}/api/Genre/getRock`)
 			.then((res) => {
 				setVinylsSearch(VinylsCollection.filter((vinyl) => vinyl.genre.genreName == "Rock"));
 			})
