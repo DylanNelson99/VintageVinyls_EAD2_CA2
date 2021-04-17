@@ -16,8 +16,7 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { Card, CardTitle, CardContent, CardAction, CardImage } from 'react-native-cards';
 
-function Vinyls()
-{
+function Vinyls() {
 	const [VinylsCollection, setVinyls] = useState([]);
 	const [VinylsCollectionSearch, setVinylsSearch] = useState([]);
 	const [genreCollection, setGenreCollection] = useState([]);
@@ -47,6 +46,8 @@ function Vinyls()
 	const [yearInput, setyearInput] = useState('');
 	const [genreInput, setgenreInput] = useState('');
 
+
+	//Deployment
 	var ngrok = 'https://vintagevinylsmobileapp.azurewebsites.net';
 
 	useEffect(
@@ -225,7 +226,7 @@ function Vinyls()
 					<Text>Name : {item.vinylName}</Text>
 				</CardContent>
 				<CardContent>
-					<Text>Description : {item.vinylDescription}</Text>
+					<Text>Rarity : {item.vinylDescription}</Text>
 				</CardContent>
 				<CardContent>
 					<Text>Genre : {item.genre.genreName}</Text>
@@ -279,7 +280,7 @@ function Vinyls()
 											...prevState,
 											vinylImage: text
 										}))}
-									placeholder="Enter image url"
+									placeholder="Enter the image url"
 								/>
 								<TextInput
 									style={styles.modalInput}
@@ -289,7 +290,7 @@ function Vinyls()
 											...prevState,
 											vinylName: text
 										}))}
-									placeholder="Enter Vinyl Name"
+									placeholder="Enter the vinyl name"
 								/>
 								<TextInput
 									style={styles.modalInput}
@@ -299,7 +300,7 @@ function Vinyls()
 											...prevState,
 											artist: text
 										}))}
-									placeholder="Enter Artist Name"
+									placeholder="Enter the artist name"
 								/>
 								<TextInput
 									style={styles.modalInput}
@@ -309,7 +310,7 @@ function Vinyls()
 											...prevState,
 											vinylDescription: text
 										}))}
-									placeholder="Enter Descriptions"
+									placeholder="Enter the rarity"
 								/>
 								<TextInput
 									style={styles.modalInput}
@@ -319,7 +320,7 @@ function Vinyls()
 											...prevState,
 											releaseYear: text
 										}))}
-									placeholder="Enter Released Year"
+									placeholder="Enter the released year"
 								/>
 								<Picker
 									selectedValue={populateEditModal.genre.genreID}
@@ -386,28 +387,28 @@ function Vinyls()
 								value={nameInput}
 								onChangeText={(nameInput) => setNameInput(nameInput)}
 								placeholderTextColor="white"
-								placeholder="Enter Vinyl Name"
+								placeholder="Enter the vinyl name"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={artistInput}
 								onChangeText={(artistInput) => setArtistInput(artistInput)}
 								placeholderTextColor="white"
-								placeholder="Enter Artist Name"
+								placeholder="Enter the artist name"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={descriptionInput}
 								onChangeText={(descriptionInput) => setdescriptionInput(descriptionInput)}
 								placeholderTextColor="white"
-								placeholder="Enter Descriptions"
+								placeholder="Enter the rarity"
 							/>
 							<TextInput
 								style={styles.modalInput}
 								value={yearInput}
 								onChangeText={(yearInput) => setyearInput(yearInput)}
 								placeholderTextColor="white"
-								placeholder="Enter Released Year"
+								placeholder="Enter the released year"
 							/>
 
 							<Picker
@@ -479,7 +480,7 @@ function Vinyls()
 			</CardAction>
 
 		</>
-);
+	);
 }
 
 const styles = StyleSheet.create({
